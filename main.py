@@ -1,4 +1,4 @@
-from bakery import assert_equal
+
 from drafter import *
 from dataclasses import dataclass
 
@@ -260,10 +260,12 @@ def round_summary(state: State) -> Page:
 
 
 # PAGE 5: Round history
+
 @route
 def history(state: State) -> Page:
     """Display saved rounds and the golfer's average score."""
-    content = [Header("Round History")]
+    content = []
+    content.append(Header("Round History"))
 
     if len(state.rounds) == 0:
         content.append("You have not saved any rounds yet.")
@@ -299,6 +301,7 @@ def history(state: State) -> Page:
     content.append(Button("Home", "index"))
 
     return Page(state, content)
+
 
 
 # PAGE 6: Details for a selected previous round
