@@ -11,9 +11,9 @@ set_site_information(
     description="A website for recording golf scores and tracking performance.",
     sources="Drafter library and CISC106 course materials.",
     planning=[
-    "Copy of CS1 Final Project 0_ Pick a Problem (2).docx",
-    "Copy of CS1 Final Project 1_ Design (1).docx"
-],
+        "Copy of CS1 Final Project 0_ Pick a Problem (2).docx",
+        "Copy of CS1 Final Project 1_ Design (1).docx"
+    ],
     links=["https://github.com/brobell509/golf_tracker"]
 )
 
@@ -87,7 +87,7 @@ def calculate_average_score(rounds: list[GolfRound]) -> float:
 def make_hole_descriptions(scores: list[int],
                            pars: list[int]) -> list[str]:
     """Create descriptions of each hole's score."""
-    descriptions = []
+    descriptions: list[str] = []
 
     for i in range(len(scores)):
         description = (
@@ -153,7 +153,7 @@ def begin_round(state: State, golfer_name: str,
 @route
 def scorecard(state: State) -> Page:
     """Display the current golf scores and hole-entry form."""
-    content = [
+    content: list = [
         Header("Current Scorecard"),
         "Golfer: " + state.golfer_name,
         "Course: " + state.course_name
@@ -241,7 +241,7 @@ def round_summary(state: State) -> Page:
 
     golf_round = state.rounds[state.selected_round_index]
 
-    content = [
+    content: list = [
         Header("Round Summary"),
         "Golfer: " + state.golfer_name,
         "Course: " + golf_round.course_name,
@@ -263,11 +263,10 @@ def round_summary(state: State) -> Page:
 
 
 # PAGE 5: Round history
-
 @route
 def history(state: State) -> Page:
     """Display saved rounds and the golfer's average score."""
-    content = []
+    content: list = []
     content.append(Header("Round History"))
 
     if len(state.rounds) == 0:
@@ -276,7 +275,7 @@ def history(state: State) -> Page:
     else:
         content.append("Your previous rounds:")
 
-        round_options = []
+        round_options: list[str] = []
 
         for i in range(len(state.rounds)):
             golf_round = state.rounds[i]
@@ -306,7 +305,6 @@ def history(state: State) -> Page:
     return Page(state, content)
 
 
-
 # PAGE 6: Details for a selected previous round
 @route
 def round_details(state: State, round_index: str) -> Page:
@@ -317,7 +315,7 @@ def round_details(state: State, round_index: str) -> Page:
         state.selected_round_index = selected_index
         golf_round = state.rounds[selected_index]
 
-        content = [
+        content: list = [
             Header("Round Details"),
             "Course: " + golf_round.course_name,
             "Total Strokes: " + str(golf_round.total_score),
@@ -365,8 +363,14 @@ def run_tests() -> None:
     assert_equal(describe_score(-2), "2 under par")
     assert_equal(describe_score(0), "Even par")
 
-    assert_equal(calculate_totals([5, 4, 6], [4, 4, 5]), (15, 13, 2))
-    assert_equal(calculate_totals([3, 3], [4, 5]), (6, 9, -3))
+    assert_equal(
+        calculate_totals([5, 4, 6], [4, 4, 5]),
+        (15, 13, 2)
+    )
+    assert_equal(
+        calculate_totals([3, 3], [4, 5]),
+        (6, 9, -3)
+    )
 
     test_rounds = [
         GolfRound("Course A", [5, 4], [4, 4], 9, 8, 1),
@@ -376,10 +380,13 @@ def run_tests() -> None:
     assert_equal(calculate_average_score(test_rounds), 9.0)
     assert_equal(calculate_average_score([]), 0.0)
 
-    assert_equal(make_hole_descriptions([5, 4], [4, 3]), [
-        "Hole 1: 5 strokes (Par 4)",
-        "Hole 2: 4 strokes (Par 3)"
-    ])
+    assert_equal(
+        make_hole_descriptions([5, 4], [4, 3]),
+        [
+            "Hole 1: 5 strokes (Par 4)",
+            "Hole 2: 4 strokes (Par 3)"
+        ]
+    )
 
     test_state = State("", "", [], [], [], -1, "")
 
@@ -390,8 +397,10 @@ def run_tests() -> None:
     assert_equal(help(test_state).state, test_state)
 
     begin_round(test_state, "", "")
-    assert_equal(test_state.message,
-                 "Please enter both your name and the course name.")
+    assert_equal(
+        test_state.message,
+        "Please enter both your name and the course name."
+    )
 
     begin_round(test_state, "Alex", "Test Course")
     assert_equal(test_state.golfer_name, "Alex")
@@ -439,4 +448,3 @@ start_server(State(
     -1,
     ""
 ))
-
