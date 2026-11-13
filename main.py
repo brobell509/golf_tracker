@@ -7,11 +7,14 @@ from dataclasses import dataclass
 set_website_title("Golf Score Tracker")
 
 set_site_information(
-    author="Your Actual Name",
+    author="Brody Bell",
     description="A website for recording golf scores and tracking performance.",
     sources="Drafter library and CISC106 course materials.",
-    planning=["plan.pdf", "design.pdf"],
-    links=["https://github.com/your-username/your-repository"]
+    planning=[
+    "Copy of CS1 Final Project 0_ Pick a Problem (2).docx",
+    "Copy of CS1 Final Project 1_ Design (1).docx"
+],
+    links=["https://github.com/brobell509/golf_tracker"]
 )
 
 hide_debug_information()
